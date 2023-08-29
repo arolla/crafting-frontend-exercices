@@ -26,9 +26,9 @@ ___
 3.3  [Functions](#33)\
 3.4  [Playwrigth cheat sheet](#34)
 
-1. [Exercices Helpers](#4)\
-4.1  [Create a Footer - Exercice n°2](#41)\
-4.2  [Testing Betting-list - Exercice n°4](#42)
+1. [Exercises Helpers](#4)\
+4.1  [Create a Footer - Exercise n°2](#41)\
+4.2  [Testing Betting-list - Exercise n°4](#42)
 
 ___
 
@@ -318,9 +318,9 @@ await myComponent.getSummaryContent()
 
 ___
 
-## 📘 4. Exercices Helpers<a id='4'></a>
+## 📘 4. Exercises Helpers<a id='4'></a>
 
-### 4.1 Create a Footer - Exercice n°2<a id='41'></a>
+### 4.1 Create a Footer - Exercise n°2<a id='41'></a>
 
 Update template depending on the recieved attributes.
 
@@ -366,7 +366,7 @@ export class Footer extends CustomHTMLElement {
 }
 ```
 
-### 4.2 Testing Betting-list - Exercice n°4<a id='42'></a>
+### 4.2 Testing Betting-list - Exercise n°4<a id='42'></a>
 
 Display a list of game odds using component `Betting Item`.
 
