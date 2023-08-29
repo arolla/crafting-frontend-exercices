@@ -3,9 +3,9 @@ import { UPDATE_STAKE } from '../../shared'
 const template = document.createElement('template')
 template.innerHTML = `
 <div class="stake">
-    <h3 class="stake__title">Votre Mise</h3>
+    <h3 class="stake__title">Your stake</h3>
     <div class="stake__input">
-        <p>Choisir votre mise</p>
+        <p>Choose your stake</p>
         <input type="number" value="" />
     </div>
 </div>

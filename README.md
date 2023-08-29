@@ -330,7 +330,7 @@ import { CustomHTMLElement } from '../../utils'
 function createTemplate(text: string): string {
     return `
         <footer>
-            <h3>Besoin d'aide ?</h3>
+            <h3>Need help?</h3>
             <p>${text}</p>
         </footer>
     `
@@ -357,8 +357,8 @@ export class Footer extends CustomHTMLElement {
 
     render(isUserConnected?: string) {
         const footerText = (isUserConnected === 'true')
-            ? 'Contact | Plan | Deconnexion'
-            : 'Contact | Plan | Connexion'
+            ? 'Contact | Map | Log out'
+            : 'Contact | Map | Log in'
 
         const newTemplate = createTemplate(footerText)
         this.renderComponent(newTemplate)
@@ -374,7 +374,7 @@ Display a list of game odds using component `Betting Item`.
 function createTemplate(gameOddsList: GameOdds[]) {
   return `
     <div class="betting-list">
-        <h3>Liste des paris - Football</h3>
+        <h3>List of bets - Football</h3>
         ${gameOddsList
       .map((gameOdds: GameOdds) => `<arl-betting-item game-odds='${JSON.stringify(gameOdds)}'></arl-betting-item>`)
       .join('')
