@@ -1,18 +1,37 @@
+
 module.exports = {
-  "stories": [
-    "../src/**/*.stories.mdx",
-    "../src/**/*.stories.@(js|jsx|ts|tsx)"
-  ],
-  "addons": [
+  async viteFinal(config, { configType }) {
+    const { mergeConfig } = await import('vite');
+    return mergeConfig(config, {
+      optimizeDeps: {
+        include: [...(config.optimizeDeps?.include ?? []), '@storybook/web-components'],
+        exclude: [...(config.optimizeDeps?.exclude ?? []), 'lit-html', 'lit-element']
+
+      },
+      build: {
+        rollupOptions: {
+          external: [
+              /lit/,
+            /^lit:.*/
+          ],
+        }
+      }
+    });
+  },
+  framework: '@storybook/web-components-vite',
+  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  features: {
+    storyStoreV7: true
+  },
+  addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-controls"
   ],
-  "framework": "@storybook/web-components",
-  "core": {
-    "builder": "@storybook/builder-vite"
+  core: {
+    builder: '@storybook/builder-vite'
   },
-  "features": {
-    "storyStoreV7": true
+  docs: {
+    autodocs: true
   }
 }
