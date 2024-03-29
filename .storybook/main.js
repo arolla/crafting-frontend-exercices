@@ -4,17 +4,7 @@ module.exports = {
     const { mergeConfig } = await import('vite');
     return mergeConfig(config, {
       optimizeDeps: {
-        include: [...(config.optimizeDeps?.include ?? []), '@storybook/web-components'],
-        exclude: [...(config.optimizeDeps?.exclude ?? []), 'lit-html', 'lit-element']
-
-      },
-      build: {
-        rollupOptions: {
-          external: [
-              /lit/,
-            /^lit:.*/
-          ],
-        }
+        include: [...(config.optimizeDeps?.include ?? []), '@storybook/web-components', 'lit-html', 'lit'],
       }
     });
   },
