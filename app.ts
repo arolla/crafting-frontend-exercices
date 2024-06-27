@@ -1,11 +1,15 @@
 import css from './app.scss'
 
+import './src/components/header/header'
+
 const template = document.createElement('template')
 template.innerHTML = `
 <style>${css}</style>
 
 <div class="app">
-    it works !! :)
+    <arl-header></arl-header>
+    <!-- is-user-logged-in is an attribute-->
+    <arl-footer is-user-logged-in="true"></arl-footer>
 </div>
 `
 
