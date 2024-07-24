@@ -43,18 +43,20 @@ const MOCKED_ODDS_RESPONSE = {
     }]
 }
 
-// /!\ don't forget to start the app (npm run dev) before running the tests
+const STAKE_IDENTIFIER = 'arl-stake'
+const SUMMARY_IDENTIFIER = 'arl-summary'
+
 describe('Betting page', () => {
     let browser: Browser
     let context: BrowserContext
     let page: Page
     let bettingPage: BettingPage
 
-    //see for debug info https://playwright.dev/docs/debug
     beforeAll(async () => {
         browser = await chromium.launch({
-            headless: true, //false if you want to see the browser
-            slowMo: 0, // slow down by setting a value 100  for instance
+            headless: true,
+            slowMo: 0,
+            devtools: false
         })
     })
 
@@ -75,8 +77,69 @@ describe('Betting page', () => {
         await browser.close()
     })
 
-    it('should display betting page', async () => {
-        const isBettingPageDisplayed = await bettingPage.isBlockDisplayed('arl-betting-page')
-        expect(isBettingPageDisplayed).toBeTruthy()
+    it('should render only the betting list when user loads page', async () => {
+        const isBettingListDisplayed = await bettingPage.isBlockDisplayed('arl-betting-list')
+        const isStakeDisplayed = await bettingPage.isBlockDisplayed('arl-stake')
+        const isSummaryDisplayed = await bettingPage.isBlockDisplayed('arl-summary')
+
+        expect(isBettingListDisplayed).toBeTruthy()
+        expect(isStakeDisplayed).toBeFalsy()
+        expect(isSummaryDisplayed).toBeFalsy()
+    })
+
+    it('should render stake when user selects at least one bet slip', async () => {
+        const button = await bettingPage.getBettingItemButton({ line: 1, button: 1 })
+        await button.click()
+
+        const isStartingBetDisplayed = await bettingPage.isBlockDisplayed(STAKE_IDENTIFIER)
+        expect(isStartingBetDisplayed).toBeTruthy()
+    })
+
+    it('should render summary when user selects at least one bet slip AND enter a valid stake', async () => {
+        const button = await bettingPage.getBettingItemButton({ line: 1, button: 1 })
+        await button.click()
+
+        const input = await bettingPage.getStakeInput()
+        await input?.type('100')
+
+        const isSummaryDisplayed = await bettingPage.isBlockDisplayed(SUMMARY_IDENTIFIER)
+        expect(isSummaryDisplayed).toBeTruthy()
+    })
+
+    it('should NOT render summary when user selects at least one bet slip AND enter a NOT valid stake', async () => {
+        const button = await bettingPage.getBettingItemButton({ line: 1, button: 1 })
+        await button?.click()
+
+        const input = await bettingPage.getStakeInput()
+        await input?.type('dioretgnb')
+
+        const isSummaryDisplayed = await bettingPage.isBlockDisplayed(SUMMARY_IDENTIFIER)
+        expect(isSummaryDisplayed).toBe(false)
+    })
+
+    it('should hide summary when user delete his existing stake', async () => {
+        const button = await bettingPage.getBettingItemButton({ line: 1, button: 1 })
+        await button?.click()
+
+        const input = await bettingPage.getStakeInput()
+        await input?.type('1')
+        await input?.press('Backspace')
+
+        const isSummaryDisplayed = await bettingPage.isBlockDisplayed(SUMMARY_IDENTIFIER)
+        expect(isSummaryDisplayed).toBe(false)
+    })
+
+    it('should render correct bets information when user select 2 bets slip (odds 1.24 and 2.50) with 100 € as stake', async () => {
+        const firstLineButton = await bettingPage.getBettingItemButton({ line: 1, button: 1 })
+        const SecondLineButton = await bettingPage.getBettingItemButton({ line: 2, button: 1 })
+        await firstLineButton?.click()
+        await SecondLineButton?.click()
+
+        const input = await bettingPage.getStakeInput()
+        await input?.type('100')
+
+        const summaryContent = await bettingPage.getSummaryContent()
+        expect(summaryContent).toContain('Number of bets placed: 2')
+        expect(summaryContent).toContain('Potential gain: 252 €')
     })
 })

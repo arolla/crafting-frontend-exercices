@@ -1,0 +1,50 @@
+/* let's refactor the css ! */
+
+.container {
+  width: 450px;
+  background-color: #eee;
+  text-align: center;
+
+  padding:  10px;
+  border-radius: 3px;
+
+  span {
+    font: 30px "Arial Black", sans-serif;
+    line-height: 24px;
+    display: inline-block;
+    margin: 15px 0;
+  }
+
+  .buttonsContainer {
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+
+    button {
+      display: flex;
+      border: none;
+      border-radius: 5px;
+      background-color: #ddd;
+      padding: 5px 10px;
+      width: 156px;
+      cursor: pointer;
+      font: 24px Arial, sans-serif;
+      justify-content: center;
+      height: fit-content;
+
+
+      &#green {
+        background-color: #2ECC71;
+      }
+
+      &#red {
+        background-color: #e74c3c;
+      }
+
+      &:hover {
+        background-color: #fff !important;
+      }
+    }
+  }
+}

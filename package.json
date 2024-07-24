@@ -14,7 +14,8 @@
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "start-css-exercise": "vite serve --config vite.css-exo.config.ts"
   },
   "devDependencies": {
     "@babel/core": "7.18.6",
