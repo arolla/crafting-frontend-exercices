@@ -1,5 +1,5 @@
 import { mapResponseToGameOdds } from '../../mappers'
-import { GameApiResponse,  OddsApiResponse } from '../../models/api'
+import { GameApiResponse,  OddsApiResponse } from '../../models'
 import {  GameOdds } from '../../models'
 import { mockFetch } from '../../utils'
 

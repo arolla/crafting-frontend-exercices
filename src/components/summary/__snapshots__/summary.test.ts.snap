@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Bets-Summary Component should render correctly summary when user made bets slip with 100€ stake 1`] = `
+<div
+  class="summary"
+>
+  
+      
+  <h3
+    class="summary__title"
+  >
+    Betting summary
+  </h3>
+  
+      
+  <div
+    class="summary__info"
+  >
+    
+        
+    <p
+      class="summary__info--bets-slip"
+    >
+      Number of bets placed: 
+    </p>
+    
+        
+    <p
+      class="summary__info--potential-gains"
+    >
+      Potential gain: €
+    </p>
+    
+      
+  </div>
+  
+    
+</div>
+`;

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { GameApiResponse, OddsApiResponse } from '../models/api'
+import { GameApiResponse, OddsApiResponse } from '../models'
 import {  GameOdds } from '../models'
 
 export function mapResponseToGameOdds(games: GameApiResponse[], odds: OddsApiResponse[]): GameOdds[] {
