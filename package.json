@@ -9,6 +9,7 @@
     "start": "vite --config vite.config.ts",
     "test": "jest --detectOpenHandles",
     "e2e": "jest --config=playwright.config.cjs",
+    "e2e:debug": "jest --config=playwright.config.cjs --debug",
     "lint": "eslint --fix",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",

@@ -1,19 +1,18 @@
+import { getPotentialGains } from '../../business'
 import { BetSlip } from '../../models'
 import { CustomHTMLElement, parse } from '../../utils'
 import css from './summary.scss'
 
 const template = document.createElement('template')
 
-
-//there is no value in this template let's fix it !
 function createTemplate(betSlipNumber: number, potentialGains: number) {
   return `
     <style>${css}</style>
     <div class="summary">
       <h3 class="summary__title">Betting summary</h3>
       <div class="summary__info">
-        <p class="summary__info--bets-slip">Number of bets placed: </p>
-        <p class="summary__info--potential-gains">Potential gain: €</p>
+        <p class="summary__info--bets-slip">Number of bets placed: ${betSlipNumber}</p>
+        <p class="summary__info--potential-gains">Potential gain: ${potentialGains} €</p>
       </div>
     </div>
     `
@@ -26,20 +25,19 @@ export class Summary extends CustomHTMLElement {
   constructor() {
     super()
 
-    this.attachShadow({ mode: 'open' })
-      .appendChild(template.content.cloneNode(true))
+    this.attachShadow({ mode: 'open' }).appendChild(
+      template.content.cloneNode(true),
+    )
   }
 
   connectedCallback() {
     this.render()
   }
 
-
   static get observedAttributes() {
     return ['bets-slip', 'stake']
   }
 
-  //INPUT
   attributeChangedCallback(name: string, _oldValue: string, newValue: string) {
     switch (name) {
       case 'bets-slip':
@@ -58,14 +56,10 @@ export class Summary extends CustomHTMLElement {
   }
 
   render() {
+    const betSlipNumber = this.betsSlip.length
+    const potentialGains = getPotentialGains(this.stake, this.betsSlip)
 
-    //complete here
-    // const betSlipNumber = ?
-    //find a better place for getPotentialGains and implement it with TDD
-    // const potentialGains = getPotentialGains(this.stake, this.betsSlip)
-
-    // and use both results in template
-    const newTemplate = createTemplate(0, 0)
+    const newTemplate = createTemplate(betSlipNumber, potentialGains)
     this.renderComponent(newTemplate)
   }
 }

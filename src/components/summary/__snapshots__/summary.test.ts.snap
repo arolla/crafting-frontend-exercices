@@ -21,14 +21,14 @@ exports[`Bets-Summary Component should render correctly summary when user made b
     <p
       class="summary__info--bets-slip"
     >
-      Number of bets placed: 
+      Number of bets placed: 2
     </p>
     
         
     <p
       class="summary__info--potential-gains"
     >
-      Potential gain: €
+      Potential gain: 170 €
     </p>
     
       
