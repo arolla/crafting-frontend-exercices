@@ -1,13 +1,18 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { GameApiResponse,  OddsApiResponse } from '../models/api'
+import { GameApiResponse, OddsApiResponse } from '../models/api'
+import {  GameOdds } from '../models'
 
-//let's build a new structure for the response from the api responses
-export function mapResponseToGameOdds(games: GameApiResponse[], odds: OddsApiResponse[]): any[] {
+export function mapResponseToGameOdds(games: GameApiResponse[], odds: OddsApiResponse[]): GameOdds[] {
     return games.map((game: GameApiResponse) => {
         const oddInfo = odds.find((odd: OddsApiResponse) => odd.gameId === game.id)!
 
         return {
-            //todo
+            gameId: game.id,
+            team1: game.team1,
+            team2: game.team2,
+            oddsTeam1: oddInfo.oddsTeam1,
+            oddsDraw: oddInfo.oddsDraw,
+            oddsTeam2: oddInfo.oddsTeam2
         }
     })
 }

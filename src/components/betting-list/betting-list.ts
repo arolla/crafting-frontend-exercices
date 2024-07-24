@@ -1,47 +1,45 @@
-import { CustomHTMLElement } from '../../utils'
+import { BetChoice, BetSlip, GameOdds } from '../../models'
 import { fetchGameOdds, updateBetsSlip } from '../../services'
 
 import '../betting-item/betting-item'
-import Any = jasmine.Any
-import { BetChoice } from '../../models'
 import { SELECT_BET_CHOICE, UPDATE_BETS_SLIP } from '../../shared'
 import css from './betting-list.scss'
+import { CustomHTMLElement } from '../../utils'
 
 const template = document.createElement('template')
 
-//you'll need to update this template to pass the betting-item component attribute
-function createTemplate(gameOddsList: Any[]) {
+function createTemplate(gameOddsList: GameOdds[]) {
   return `
     <style>${css}</style>
     <div class="betting-list">
-        <h3>List of bets - Football</h3>
-        <arl-betting-item></arl-betting-item>
+        <h3>Liste des paris - Football</h3>
+        ${gameOddsList
+      .map((gameOdds: GameOdds) => `<arl-betting-item game-odds='${JSON.stringify(gameOdds)}'></arl-betting-item>`)
+      .join('')
+    }
     </div>
   `
 }
 
 export class BettingList extends CustomHTMLElement {
-  betsSlip: Any[] = [] //this is the data you'll receive from the SELECT_BET_CHOICE event (aka "click on a button" in child list item)
+  betsSlip: BetSlip[] = []
 
   constructor() {
     super()
 
-    this.attachShadow({ mode: 'open' }).appendChild(
-      template.content.cloneNode(true),
-    )
+    this.attachShadow({ mode: 'open' })
+      .appendChild(template.content.cloneNode(true))
   }
 
   async connectedCallback() {
-
     window.addEventListener(SELECT_BET_CHOICE, this.onSelectBetChoice.bind(this))
-    // fetch data from back
-    //const gameOddsList: Any[] = await fetchGameOdds()
-    // and use it in the template to feed each child component with data
-    this.render([])
+
+    const gameOddsList: GameOdds[] = await fetchGameOdds()
+    this.render(gameOddsList)
   }
 
-  render(gameOddsList: Any[]) {
-    const newTemplate = createTemplate([])
+  render(gameOddsList: GameOdds[]) {
+    const newTemplate = createTemplate(gameOddsList)
     this.renderComponent(newTemplate)
   }
 
@@ -50,7 +48,7 @@ export class BettingList extends CustomHTMLElement {
     this.selectBetSlip(gameOdds, betChoice)
   }
 
-  selectBetSlip(gameOdds: Any, betChoice: BetChoice) {
+  selectBetSlip(gameOdds: GameOdds, betChoice: BetChoice) {
     this.betsSlip = updateBetsSlip(this.betsSlip, gameOdds, betChoice)
     window.dispatchEvent(new CustomEvent(UPDATE_BETS_SLIP, { detail: { betsSlip: this.betsSlip } }))
   }

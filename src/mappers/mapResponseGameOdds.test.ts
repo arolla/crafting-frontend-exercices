@@ -28,7 +28,12 @@ describe('map Response To GameOdds', () => {
 
         expect(mapResponseToGameOdds(GAMES_API_RESPONSE, ODDS_API_RESPONSE)).toEqual([
             {
-                //TODO let's add an expectation here
+                gameId: '1',
+                team1: 'Newcastle',
+                team2: 'Liverpool',
+                oddsTeam1: 1.20,
+                oddsDraw: 2.32,
+                oddsTeam2: 4.89,
             }
         ])
     })
