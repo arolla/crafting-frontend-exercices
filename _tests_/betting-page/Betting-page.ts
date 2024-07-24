@@ -1,6 +1,5 @@
 import { Locator, Page } from 'playwright'
 
-
 const BETTING_ITEM_IDENTIFIER = '.betting-item'
 const STAKE_CONTENT_IDENTIFIER = '.stake'
 const SUMMARY_CONTENT_IDENTIFIER = '.summary'
@@ -21,11 +20,21 @@ export class BettingPage {
   }
 
   async isBlockDisplayed(blockIdentifier: string): Promise<boolean> {
-    return await this.page.locator(blockIdentifier).getAttribute('hidden') === null
+    return (
+      (await this.page.locator(blockIdentifier).getAttribute('hidden')) === null
+    )
   }
 
-  async getBettingItemButton({ line, button }: { line: number; button: number }): Promise<Locator> {
-    const gameOdds = await this.page.locator(BETTING_ITEM_IDENTIFIER).nth(line - 1)
+  async getBettingItemButton({
+    line,
+    button,
+  }: {
+    line: number
+    button: number
+  }): Promise<Locator> {
+    const gameOdds = await this.page
+      .locator(BETTING_ITEM_IDENTIFIER)
+      .nth(line - 1)
     return await gameOdds.locator('button').nth(button - 1)
   }
 

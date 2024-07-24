@@ -1,50 +1,38 @@
-/* let's refactor the css ! */
+@import '../../shared/styles/variables.scss';
+@import '../../shared/styles/fonts.scss';
+@import '../../shared/styles/elements.scss';
 
-.container {
+.notification_panel_structure {
   width: 450px;
-  background-color: #eee;
   text-align: center;
+  padding: 10px;
+}
 
-  padding:  10px;
+.notification_panel_skin {
+  background-color: $bg-dusty-white;
   border-radius: 3px;
+}
 
-  span {
-    font: 30px "Arial Black", sans-serif;
-    line-height: 24px;
-    display: inline-block;
-    margin: 15px 0;
-  }
+.notification_panel__title {
+  @include arial-black-30;
+  line-height: 24px;
+  display: inline-block;
+  margin: 15px 0;
+}
 
-  .buttonsContainer {
-    margin: 20px;
-    display: flex;
-    justify-content: space-between;
-    gap: 5px;
+#notification_panel__button-remove {
+  @extend %action_button;
+  background-color: $bg-green;
+}
 
-    button {
-      display: flex;
-      border: none;
-      border-radius: 5px;
-      background-color: #ddd;
-      padding: 5px 10px;
-      width: 156px;
-      cursor: pointer;
-      font: 24px Arial, sans-serif;
-      justify-content: center;
-      height: fit-content;
+#notification_panel__button-add {
+  @extend %action_button;
+  background-color: $bg-red;
+}
 
-
-      &#green {
-        background-color: #2ECC71;
-      }
-
-      &#red {
-        background-color: #e74c3c;
-      }
-
-      &:hover {
-        background-color: #fff !important;
-      }
-    }
-  }
+.notification_panel__actions {
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
 }

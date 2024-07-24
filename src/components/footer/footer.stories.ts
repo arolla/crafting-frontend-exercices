@@ -4,15 +4,15 @@ import './footer'
 export default {
   title: 'Components/Footer',
   argTypes: {
-    isUserConnected: {
+    isUserLoggedIn: {
       control: 'boolean',
     },
   },
 }
 
 type ArgTypes = {
-  isUserConnected: StorybookControls
+  isUserLoggedIn: StorybookControls
 }
 
 export const Default = (argTypes: ArgTypes) =>
-  `<arl-footer is-user-logged-in="${argTypes.isUserConnected}"></arl-footer>`
+  `<arl-footer is-user-logged-in="${argTypes.isUserLoggedIn}"></arl-footer>`
