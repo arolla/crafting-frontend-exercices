@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return footer when user is NOT logged in 1`] = `
+<div
+  id="footer"
+>
+  
+            
+  <h3>
+    Need help?
+  </h3>
+  
+            
+  <p>
+    Contact | Map | Log in
+  </p>
+  
+        
+</div>
+`;
+
+exports[`should return footer when user is logged in 1`] = `
+<div
+  id="footer"
+>
+  
+            
+  <h3>
+    Need help?
+  </h3>
+  
+            
+  <p>
+    Contact | Map | Log out
+  </p>
+  
+        
+</div>
+`;

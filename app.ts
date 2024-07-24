@@ -1,6 +1,8 @@
 import css from './app.scss'
 
+import './src/components/footer/footer'
 import './src/components/header/header'
+import './src/pages/betting-page'
 
 const template = document.createElement('template')
 template.innerHTML = `
@@ -8,7 +10,7 @@ template.innerHTML = `
 
 <div class="app">
     <arl-header></arl-header>
-    <!-- is-user-logged-in is an attribute-->
+    <arl-betting-page></arl-betting-page>
     <arl-footer is-user-logged-in="true"></arl-footer>
 </div>
 `

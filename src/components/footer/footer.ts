@@ -3,7 +3,6 @@ import { CustomHTMLElement } from '../../utils'
 
 const template = document.createElement('template')
 
-//dynamic template creation
 function createTemplate(text: string): string {
   return `
     <style>${css}</style>
@@ -24,15 +23,10 @@ export class Footer extends CustomHTMLElement {
     this.render()
   }
 
-  /**
-   * standard method that you have to define to specify which attributes you want to observe
-   *    /!\ attributes names are always lower case strings
-   **/
   static get observedAttributes() {
     return ['is-user-logged-in']
   }
 
-  // standard method automatically called each time a component attribute changes
   attributeChangedCallback(
     attributeTagName: string,
     formerValue: string,
