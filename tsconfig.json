@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "./types",
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "Node",
+    "rootDirs": ["src"],
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es2020",
+    "useDefineForClassFields": false
+  }
+}

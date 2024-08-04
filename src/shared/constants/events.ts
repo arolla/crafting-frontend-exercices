@@ -1,0 +1,1 @@
+export const UPDATE_STAKE = 'UPDATE_STAKE'
