@@ -1,0 +1,37 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "files": {
+    "ignoreUnknown": false,
+    "ignore": ["./package-lock.json", "./public/mockServiceWorker.js"]
+  },
+  "formatter": {
+    "attributePosition": "auto",
+    "bracketSpacing": true,
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 80,
+    "useEditorconfig": true
+  },
+  "javascript": {
+    "formatter": {
+      "attributePosition": "auto",
+      "arrowParentheses": "always",
+      "bracketSameLine": false,
+      "bracketSpacing": true,
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "quoteStyle": "single",
+      "semicolons": "asNeeded",
+      "trailingCommas": "all"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": { "recommended": true }
+  },
+  "organizeImports": { "enabled": true },
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true }
+}
