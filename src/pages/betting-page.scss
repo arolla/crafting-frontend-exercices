@@ -1,0 +1,11 @@
+@use '@shared/styles/wrappers';
+
+.betting-page {
+  // Substract footer height + header height
+  min-height: calc(100% - 218px);
+}
+
+.betting-page__validation {
+  @extend %main-wrapper;
+  text-align: right;
+}

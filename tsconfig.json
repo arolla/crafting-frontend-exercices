@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "./types",
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "Node",
+    "paths": {
+      "@assets/*": ["./assets/*"],
+      "@api/*": ["./src/api/*"],
+      "@business/*": ["./src/business/*"],
+      "@components/*": ["./src/components/*"],
+      "@config": ["./src/config.ts"],
+      "@mappers/*": ["./src/mappers/*"],
+      "@models/*": ["./src/models/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@services/*": ["./src/services/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@util/*": ["./src/util/*"]
+    },
+    "rootDirs": ["src"],
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es2020",
+    "useDefineForClassFields": false
+  }
+}
