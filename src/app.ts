@@ -1,5 +1,6 @@
 import { html } from 'common-tags'
 import css from './app.scss?inline'
+import { Header } from './components/header/header'
 import {
   WebComponent,
   type WebComponentConstructor,
@@ -28,6 +29,7 @@ export class App extends WebComponent {
 
   static register() {
     defineCustomElement(App)
+    Header.register()
   }
 
   constructor() {
