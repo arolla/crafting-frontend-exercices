@@ -20,7 +20,9 @@ export class App extends WebComponent {
       ${css}
     </style>
     <div class="app">
-      it works !! :)
+      <arl-header></arl-header>
+      <!-- is-user-logged-in is an attribute-->
+      <arl-footer is-user-logged-in="true"></arl-footer>
     </div>
   `
 
