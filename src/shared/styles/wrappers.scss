@@ -1,0 +1,18 @@
+@use 'variables';
+
+%extended-wrapper {
+  width: 100%;
+  padding: 10px;
+  color: variables.$bg-white;
+}
+
+%main-wrapper {
+  width: 80%;
+  margin: 25px;
+  padding: 0 5px;
+}
+
+%content-wrapper {
+  background: variables.$bg-grey;
+  padding: 15px 20px;
+}
