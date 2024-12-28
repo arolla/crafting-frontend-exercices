@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Components Footer should provide a "Log in" link given user is NOT logged in 1`] = `
+<div
+  id="footer"
+>
+  
+  
+  <h3>
+    Need help?
+  </h3>
+  
+  
+  <p>
+    Contact | Map | Log in
+  </p>
+  
+
+</div>
+`;
+
+exports[`Components Footer should provide a "Log out" link given user is logged in 1`] = `
+<div
+  id="footer"
+>
+  
+  
+  <h3>
+    Need help?
+  </h3>
+  
+  
+  <p>
+    Contact | Map | Log out
+  </p>
+  
+
+</div>
+`;
