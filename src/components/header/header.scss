@@ -1,0 +1,9 @@
+@use '@shared/styles/wrappers';
+@use "@shared/styles/variables";
+
+#header {
+  @extend %extended-wrapper;
+
+  margin-bottom: 15px;
+  background: variables.$bg-red;
+}

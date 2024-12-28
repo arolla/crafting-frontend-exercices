@@ -1,23 +1,19 @@
-import { Header } from '@components/header/header'
 import { staticImplements } from '@util/decorators.helper.'
 import { WebComponent, type WebComponentConstructor } from '@util/web-component'
 import { html } from 'common-tags'
-import css from './app.scss?inline'
+import css from './header.scss?inline'
 
 @staticImplements<WebComponentConstructor>()
-export class App extends WebComponent {
+export class Header extends WebComponent {
   static register() {
-    WebComponent.register('arl-app', App)
-    Header.register()
+    WebComponent.register('arl-header', Header)
   }
 
   buildTemplate() {
     return html`
-      <style>
-        ${css}
-      </style>
-      <div class="app">
-        <arl-header></arl-header>
+      <style>${css}</style>
+      <div id="header">
+        <h3 class="header__title">Web Components Bets Application</h3>
       </div>
     `
   }
