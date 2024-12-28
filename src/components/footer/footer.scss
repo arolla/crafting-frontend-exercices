@@ -1,0 +1,7 @@
+@use '@shared/styles/wrappers';
+@use '@shared/styles/variables';
+
+#footer {
+  @extend %extended-wrapper;
+  background: variables.$bg-black;
+}
