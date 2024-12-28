@@ -1,4 +1,4 @@
-import Footer from './footer'
+import { Footer } from './footer'
 
 describe('Components', () => {
   describe('Footer', () => {
