@@ -1,0 +1,20 @@
+@use '@shared/styles/elements';
+@use '@shared/styles/wrappers';
+@use "@shared/styles/variables";
+
+.summary {
+  @extend %main-wrapper;
+  @extend %separator;
+}
+
+.summary__title {
+  @extend %medium-title;
+}
+
+.summary__info {
+  @extend %content-wrapper;
+
+  p {
+    font-size: variables.$medium-text;
+  }
+}
