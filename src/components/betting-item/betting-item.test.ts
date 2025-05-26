@@ -1,3 +1,5 @@
+import { gamesApiResponse } from '@api/games.response'
+import { oddsApiResponse } from '@api/odds.response'
 import { BettingItem } from '@components/betting-item/betting-item'
 import {
   beforeAll,
@@ -10,8 +12,6 @@ import {
 import type { GameApiResponse } from '@models/api/game-api-response'
 import type { OddsApiResponse } from '@models/api/odds-api-response'
 import type { GameOdds } from '@models/games/game-odds'
-import { gamesApiResponse } from '../../api/games.response'
-import { oddsApiResponse } from '../../api/odds.response'
 
 describe('Components', () => {
   describe('BettingItem', () => {
@@ -63,9 +63,76 @@ describe('Components', () => {
       })
     })
     describe('button click', () => {
-      test.skip('should test something', () => {
-        //TODO write the component tests here
-        throw new Error('Not yet implementes!')
+      let dispatchEventSpy: jest.SpiedFunction<typeof window.dispatchEvent>
+      beforeAll(() => {
+        dispatchEventSpy = jest.spyOn(window, 'dispatchEvent')
+      })
+      test('should select odds button "Team1 1.52" when user clicks on it', () => {
+        // Given
+        bettingItem.gameOdds = gameOddsList[0]
+        bettingItem.render()
+        const firstOddsButton: HTMLButtonElement | null | undefined =
+          bettingItem.shadowRoot?.querySelector(
+            'div.betting-item__odds > button:nth-child(1)',
+          )
+        if (!firstOddsButton) {
+          throw new Error('No first odds button')
+        }
+        // When
+        firstOddsButton.click()
+        // Then
+        expect(firstOddsButton?.classList.contains('selected')).toBeTruthy()
+      })
+      test('should unselect other buttons and select odds button "Draw 3.45" when user clicks on it', () => {
+        // Given
+        bettingItem.gameOdds = gameOddsList[0]
+        bettingItem.render()
+        const buttons: NodeListOf<HTMLButtonElement> | undefined =
+          bettingItem.shadowRoot?.querySelectorAll('.betting-item__odds button')
+        const firstButton = buttons?.[0]
+        if (!firstButton) {
+          throw new Error('No first button')
+        }
+        const secondButton = buttons?.[1]
+        if (!secondButton) {
+          throw new Error('No second button')
+        }
+        // When
+        firstButton.click() // Click on the first button
+        secondButton.click() // Update by clicking on the second button
+        // Then
+        expect(firstButton.classList.contains('selected')).toBeFalsy()
+        expect(secondButton.classList.contains('selected')).toBeTruthy()
+      })
+      test('should emit a valid bet slip when user clicks on the odds button', () => {
+        // Given
+        bettingItem.gameOdds = gameOddsList[0]
+        bettingItem.render()
+        const firstOddsButton: HTMLButtonElement | null | undefined =
+          bettingItem.shadowRoot?.querySelector(
+            '.betting-item__odds button:first-child',
+          )
+        if (!firstOddsButton) {
+          throw new Error('No first odds button')
+        }
+        const expectedCustomEventDetail = {
+          betChoice: 'TEAM_1_WINS',
+          gameOdds: {
+            gameId: '1',
+            oddsDraw: 2.18,
+            oddsTeam1: 1.24,
+            oddsTeam2: 2.57,
+            team1: 'Manchester City',
+            team2: 'Arsenal',
+          },
+        }
+        // When
+        firstOddsButton.click()
+        // Then
+        expect(dispatchEventSpy).toHaveBeenCalledTimes(1)
+        expect(dispatchEventSpy).toHaveBeenCalledWith(expect.any(CustomEvent))
+        const customEvent = dispatchEventSpy.mock.calls[0][0] as CustomEvent
+        expect(customEvent.detail).toStrictEqual(expectedCustomEventDetail)
       })
     })
   })
