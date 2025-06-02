@@ -3,16 +3,24 @@ import type { BetSlip } from '@models/bets/bet-slip'
 import type { GameOdds } from '@models/games/game-odds'
 
 export const updateBetSlip = (
-  _betSlips: unknown[],
-  _gameOdds: unknown,
-  _selectedChoice: unknown,
+  betSlips: BetSlip[],
+  gameOdds: GameOdds,
+  selectedChoice: BetChoice,
 ): BetSlip[] => {
-  /**
-   * TODO: not yet implemented
-   * - don't worry about that for now
-   * - it will be responsible for updating the betsSlip array with the new bet
-   */
-  return []
+  const betSlip: BetSlip = {
+    gameId: gameOdds.gameId,
+    selectedChoice,
+    selectedOdds: getOddsFrom(gameOdds, selectedChoice),
+  }
+  const existingBetSlipIndex = betSlips.findIndex(
+    ({ gameId }) => gameId === gameOdds.gameId,
+  )
+  if (existingBetSlipIndex < 0) {
+    return betSlips.concat(betSlip)
+  }
+  const updatedBetSlips = Array.from(betSlips)
+  updatedBetSlips[existingBetSlipIndex] = betSlip
+  return updatedBetSlips
 }
 
 export const getOddsFrom = (gameOdds: GameOdds, betChoice: BetChoice) => {
