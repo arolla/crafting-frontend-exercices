@@ -1,7 +1,8 @@
 import { BettingItem } from '@components/betting-item/betting-item'
 import type { BetChoice } from '@models/bets/bet-choice'
+import type { BetSlip } from '@models/bets/bet-slip'
 import type { GameOdds } from '@models/games/game-odds'
-// import { fetchGameOdds } from '@services/api/fetch-game-odds'
+import { fetchGameOdds } from '@services/api/fetch-game-odds'
 import { updateBetSlip } from '@services/bets-slip/update-bet-slip'
 import { SELECT_BET_CHOICE, UPDATE_BETS_SLIP } from '@shared/constants/events'
 import { staticImplements } from '@util/decorators.helper.'
@@ -16,29 +17,41 @@ export class BettingList extends WebComponent {
     BettingItem.register()
   }
 
-  // TODO: this is the data you'll receive from the SELECT_BET_CHOICE event (aka "click on a button" in child list item)
-  #betsSlip: unknown[] = []
+  #gameOddsList: GameOdds[] = []
+  #betsSlip: BetSlip[] = []
+
+  get gameOddsList() {
+    return this.#gameOddsList
+  }
 
   get betsSlip() {
     return this.#betsSlip
   }
 
-  // TODO: update this template to pass the betting-item component attribute
   buildTemplate() {
     return html`
       <style>${css}</style>
       <div class="betting-list">
         <h3>List of bets - Football</h3>
-        <arl-betting-item></arl-betting-item>
+        ${this.gameOddsList
+          .map(
+            (_, index) =>
+              `<arl-betting-item id="bettingItem${index + 1}"></arl-betting-item>`,
+          )
+          .join('')}
       </div>
     `
   }
 
   async connectedCallback() {
-    // this.#gameOddsList = await fetchGameOdds()
+    this.#gameOddsList = await fetchGameOdds()
     this.render()
-    window.addEventListener(SELECT_BET_CHOICE, (event: Event) =>
-      this.onSelectBetChoice(event),
+    this.onEvent(
+      SELECT_BET_CHOICE,
+      (value: { gameOdds: GameOdds; betChoice: BetChoice }) => {
+        const { gameOdds, betChoice } = value
+        this.selectBetSlip(gameOdds, betChoice)
+      },
     )
   }
 
@@ -48,24 +61,19 @@ export class BettingList extends WebComponent {
       return
     }
     super.render()
-    // TODO
-  }
-
-  onSelectBetChoice(event: Event) {
-    if (!(event instanceof CustomEvent)) {
-      return
+    for (const [index, gameOdds] of this.gameOddsList.entries()) {
+      const bettingItemsElt = shadowRoot.querySelector<BettingItem>(
+        `#bettingItem${index + 1}`,
+      )
+      if (bettingItemsElt) {
+        bettingItemsElt.gameOdds = gameOdds
+      }
     }
-    const { gameOdds, betChoice } = event.detail
-    this.selectBetSlip(gameOdds, betChoice)
   }
 
   selectBetSlip(gameOdds: GameOdds, betChoice: BetChoice) {
     const betsSlip = updateBetSlip(this.betsSlip, gameOdds, betChoice)
     this.#betsSlip = betsSlip
-    window.dispatchEvent(
-      new CustomEvent(UPDATE_BETS_SLIP, {
-        detail: { betsSlip },
-      }),
-    )
+    this.sendEvent(UPDATE_BETS_SLIP, { betsSlip })
   }
 }
