@@ -1,0 +1,38 @@
+@use "@shared/styles/elements.scss";
+@use "@shared/styles/fonts.scss";
+@use "@shared/styles/variables.scss";
+
+.notification_panel_structure {
+  width: 450px;
+  text-align: center;
+  padding: 10px;
+}
+
+.notification_panel_skin {
+  background-color: variables.$bg-dusty-white;
+  border-radius: 3px;
+}
+
+.notification_panel__title {
+  @include fonts.arial-black-30;
+  line-height: 24px;
+  display: inline-block;
+  margin: 15px 0;
+}
+
+#notification_panel__button-remove {
+  @extend %action_button;
+  background-color: variables.$bg-green;
+}
+
+#notification_panel__button-add {
+  @extend %action_button;
+  background-color: variables.$bg-red;
+}
+
+.notification_panel__actions {
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
