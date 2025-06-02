@@ -2,5 +2,6 @@
 /.vscode/
 /dist/
 /node_modules/
+/storybook-static/
 .npm/
 .env.local
