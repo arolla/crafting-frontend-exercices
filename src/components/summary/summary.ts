@@ -1,3 +1,4 @@
+import { computePotentialGains } from '@business/business.rules'
 import type { BetSlip } from '@models/bets/bet-slip'
 import { staticImplements } from '@util/decorators.helper.'
 import { parseNumber } from '@util/string.helper'
@@ -39,8 +40,7 @@ export class Summary extends WebComponent {
     if (!this.betsSlip.length) {
       return ''
     }
-    // TODO potential gains is a default value: let's fix it!
-    const potentialGains = Number.NaN
+    const potentialGains = computePotentialGains(this.stake, this.betsSlip)
     return html`
       <style>${css}</style>
       <div class="summary">
