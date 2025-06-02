@@ -1,0 +1,44 @@
+@use '@shared/styles/elements';
+@use '@shared/styles/variables';
+
+button {
+  @extend %bet-button;
+}
+
+.betting-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding: 5px 10px;
+  background: variables.$bg-grey;
+}
+
+.betting-item__teams {
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 35px;
+    margin: 0 4px;
+  }
+
+  &--name {
+    font-weight: variables.$text-bold;
+    margin: 0 8px;
+  }
+}
+
+.betting-item__odds {
+  &--name {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+    text-align: center;
+    font-size: variables.$small-text;
+  }
+
+  &--number {
+    font-weight: variables.$text-bold;
+  }
+}
